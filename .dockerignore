@@ -1,0 +1,7 @@
+# flyctl launch added from .gitignore
+**/bin
+**/lib
+**/lib64
+**/pyvenv.cfg
+**/share
+**/__pycache__
