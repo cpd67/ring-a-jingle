@@ -31,7 +31,10 @@ def play_song():
     song_list = os.listdir(f'src/{song_dir}')
     selected_song = choice(song_list)
 
-    return send_file(f'{song_dir}{selected_song}', as_attachment=True, attachment_filename=selected_song, mimetype='audio/mpeg')
+    # TODO host song files somewhere
+    return send_file(f'{song_dir}{selected_song}', as_attachment=True, 
+                     attachment_filename=selected_song, mimetype='audio/mpeg'
+                     )
 
 
 if __name__ == "__main__":
