@@ -28,7 +28,7 @@ def play_song():
     Send a random song to play.
     """
     # TODO host song files somewhere
-    songs_dir = 'songs/'
+    songs_dir = os.environ.get('SONG_DIR', 'songs')
     song_list = os.listdir(songs_dir)
     selected_song = choice(song_list)
     return send_from_directory(
