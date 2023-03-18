@@ -1,7 +1,7 @@
 import os
 from random import choice
 
-from flask import Flask, url_for, request, send_file
+from flask import Flask, url_for, send_from_directory
 from twilio.twiml.voice_response import VoiceResponse
 
 
@@ -27,14 +27,16 @@ def play_song():
     """
     Send a random song to play.
     """
-    song_dir = 'songs/'
-    song_list = os.listdir(f'src/{song_dir}')
-    selected_song = choice(song_list)
-
     # TODO host song files somewhere
-    return send_file(f'{song_dir}{selected_song}', as_attachment=True, 
-                     attachment_filename=selected_song, mimetype='audio/mpeg'
-                     )
+    songs_dir = 'songs/'
+    song_list = os.listdir(songs_dir)
+    selected_song = choice(song_list)
+    return send_from_directory(
+        songs_dir,
+        selected_song,
+        as_attachment=True,
+        mimetype='audio/mpeg'
+    )
 
 
 if __name__ == "__main__":

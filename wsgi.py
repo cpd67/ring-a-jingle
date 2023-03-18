@@ -1,4 +1,4 @@
-from src.ring_a_jingle import app
+from ring_a_jingle import app
 
 
 if __name__ == '__main__':
