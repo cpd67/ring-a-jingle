@@ -1,2 +1,2 @@
 # ring-a-jingle
-Call a twilio number, get a jingle.
+Call a number, get a jingle.
