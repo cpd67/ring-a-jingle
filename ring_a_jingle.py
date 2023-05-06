@@ -1,7 +1,7 @@
 import os
 from random import choice
 
-from flask import Flask, url_for, send_from_directory
+from flask import Flask, url_for, send_from_directory, request
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import VoiceResponse
 
@@ -46,7 +46,27 @@ def handle_sms():
     Send a response to an incoming SMS text message.
     """
     resp = MessagingResponse()
-    resp.message("I AM A STEGOSAURAUS")
+    # Acceptable things that can be asked for
+    valid_inputs = ['joke', 'clams', 'puppies']
+
+    # Check to see what was asked for
+    incoming_msg = request.values.get('Body')
+    if incoming_msg is not None:
+        incoming_msg_lower = incoming_msg.lower()
+        resp_msg = ''
+        if incoming_msg_lower in valid_inputs:
+            if incoming_msg_lower == 'joke':
+                resp_msg = 'Why did the chicken cross the road? To get to the other side!'
+            elif incoming_msg_lower == 'clams':
+                resp_msg = 'What do clams do on their birthday? They shellabrate!'
+            elif incoming_msg_lower == 'puppies':
+                resp_msg = 'What tiny puppy loves bubble baths? A shampoodle!'
+        else:
+            resp_msg = f'I did not understand that. Try asking for one of the following: {", ".join(valid_inputs)}'
+        resp.message(resp_msg)
+    else:
+        resp.message("You need to tell me what you want! Use one word, like 'joke'")
+
     return str(resp)
 
 
