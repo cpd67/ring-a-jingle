@@ -2,6 +2,7 @@ import os
 from random import choice
 
 from flask import Flask, url_for, send_from_directory
+from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import VoiceResponse
 
 
@@ -37,6 +38,16 @@ def play_song():
         as_attachment=True,
         mimetype='audio/mpeg'
     )
+
+
+@app.route('/sms', methods=['GET', 'POST'])
+def handle_sms():
+    """
+    Send a response to an incoming SMS text message.
+    """
+    resp = MessagingResponse()
+    resp.message("I AM A STEGOSAURAUS")
+    return str(resp)
 
 
 if __name__ == "__main__":
