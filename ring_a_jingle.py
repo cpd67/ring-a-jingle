@@ -53,17 +53,15 @@ def handle_sms():
     incoming_msg = request.values.get('Body')
     if incoming_msg is not None:
         incoming_msg_lower = incoming_msg.lower()
-        resp_msg = ''
-        if incoming_msg_lower in valid_inputs:
-            if incoming_msg_lower == 'joke':
+        match incoming_msg:
+            case "joke":
                 resp_msg = 'Why did the chicken cross the road? To get to the other side!'
-            elif incoming_msg_lower == 'clams':
+            case "clams":
                 resp_msg = 'What do clams do on their birthday? They shellabrate!'
-            elif incoming_msg_lower == 'puppies':
+            case "puppies":
                 resp_msg = 'What tiny puppy loves bubble baths? A shampoodle!'
-        else:
-            resp_msg = f'I did not understand that. Try asking for one of the following: {", ".join(valid_inputs)}'
-        resp.message(resp_msg)
+            case _:
+                resp_msg = f'I did not understand that. Try asking for one of the following: {", ".join(valid_inputs)}'
     else:
         resp.message("You need to tell me what you want! Use one word, like 'joke'")
 
