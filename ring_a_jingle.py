@@ -49,10 +49,11 @@ def handle_sms():
     # Acceptable things that can be asked for
     valid_inputs = ['joke', 'clams', 'puppies']
 
-    # Check to see what was asked for
-    incoming_msg = request.values.get('Body')
-    if incoming_msg is not None:
-        incoming_msg_lower = incoming_msg.lower()
+    # Check to see what was asked for and respond accordingly
+    resp_msg = ''
+    body = request.values.get('Body')
+    if body is not None:
+        incoming_msg = body.lower()
         match incoming_msg:
             case "joke":
                 resp_msg = 'Why did the chicken cross the road? To get to the other side!'
@@ -63,8 +64,8 @@ def handle_sms():
             case _:
                 resp_msg = f'I did not understand that. Try asking for one of the following: {", ".join(valid_inputs)}'
     else:
-        resp.message("You need to tell me what you want! Use one word, like 'joke'")
-
+        resp_msg = "You need to tell me what you want! Use one word, like 'joke'"
+    resp.message(resp_msg)
     return str(resp)
 
 
